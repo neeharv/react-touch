@@ -1,11 +1,10 @@
 import React from 'react';
 import isFunction from 'lodash/isFunction';
-import merge from 'lodash/merge';
 import clamp from 'lodash/clamp';
+import objectAssign from 'object-assign';
 
 import defineHold from './defineHold';
 import TouchHandler from './TouchHandler';
-
 
 const T = React.PropTypes;
 const DEFAULT_HOLD = { initial: null, current: null, duration: 0 };
@@ -74,13 +73,13 @@ class Holdable extends React.Component {
   handleTouchStart() {
     // set initial conditions for the touch event
     const initial = Date.now();
-    this.setState(merge({}, this.state, { initial, current: initial }));
+    this.setState(objectAssign({}, this.state, { initial, current: initial }));
 
     this._clearHoldProgressTimer = this._startHoldProgress(holdLength => {
       const current = Date.now();
       const _duration = (current - this.state.initial) / holdLength;
       const duration = clamp(_duration, 0, 1);
-      this.setState(merge({}, this.state, { current, duration }));
+      this.setState(objectAssign({}, this.state, { current, duration }));
 
       if (duration === 1) {
         // edge case: setTimeout ensures onholdComplete has a chance to fire

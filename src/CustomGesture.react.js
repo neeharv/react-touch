@@ -1,7 +1,7 @@
 import React from 'react';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
-import merge from 'lodash/merge';
+import objectAssign from 'object-assign';
 
 import TouchHandler from './TouchHandler';
 import computeDeltas from './computeDeltas';
@@ -50,7 +50,7 @@ class CustomGesture extends React.Component {
 
   handleTouchStart(touchPosition) {
     // set initial conditions for the touch event
-    this._state = merge({}, this._state, {current: touchPosition});
+    this._state = objectAssign({}, this._state, {current: touchPosition});
   }
 
   handleTouchMove(touchPosition) {
