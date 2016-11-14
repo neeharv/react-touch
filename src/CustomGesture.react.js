@@ -1,6 +1,5 @@
 import React from 'react';
 import isFunction from 'lodash/isFunction';
-import isArray from 'lodash/isArray';
 import objectAssign from 'object-assign';
 
 import TouchHandler from './TouchHandler';
@@ -73,7 +72,7 @@ class CustomGesture extends React.Component {
       return;
     }
 
-    const gesture = isArray(config.gesture) ? config.gesture.join("") : config.gesture;
+    const gesture = Array.isArray(config.gesture) ? config.gesture.join("") : config.gesture;
     const distance = gestureLevenshtein(this._state.moves.join(""), gesture);
 
     if (distance < config.fudgeFactor) {
